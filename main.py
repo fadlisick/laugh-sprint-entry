@@ -14,6 +14,10 @@ LINE = (
 
 
 def main():
+    # Gate: the competition allows 1-200 chars, one line, non-blank.
+    # Fail loudly instead of shipping an invalid entry.txt.
+    if not LINE.strip() or "\n" in LINE or not 1 <= len(LINE) <= 200:
+        raise ValueError("entry line must be one non-blank line of 1-200 chars")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
